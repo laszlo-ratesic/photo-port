@@ -1,33 +1,59 @@
 import React, { useState } from "react";
 
 function ContactForm() {
-  const [formState, setFormState] = useState({ name: '', email: '', message: ''});
+  const [formState, setFormState] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
   const { name, email, message } = formState;
 
   function handleChange(e) {
-      setFormState({...formState, [e.target.name]: e.target.value })
+    setFormState({ ...formState, [e.target.name]: e.target.value });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(formState);
   }
 
   return (
     <section>
       <h1>Contact Me</h1>
-      <form id="contact-form">
+      <form id="contact-form" onSubmit={handleSubmit}>
         {/* Name */}
         <div>
           <label htmlFor="name">Name:</label>
-          <input type="text" name="name" defaultValue={name} onChange={handleChange} />
+          <input
+            type="text"
+            name="name"
+            defaultValue={name}
+            onChange={handleChange}
+          />
         </div>
         {/* Email */}
         <div>
           <label htmlFor="email">Email address:</label>
-          <input type="email" name="email" defaultValue={email} onChange={handleChange} />
+          <input
+            type="email"
+            name="email"
+            defaultValue={email}
+            onChange={handleChange}
+          />
         </div>
         {/* Message Text */}
         <div>
           <label htmlFor="message">Message:</label>
-          <textarea name="message" rows="5" defaultValue={message} onChange={handleChange} />
+          <textarea
+            name="message"
+            rows="5"
+            defaultValue={message}
+            onChange={handleChange}
+          />
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit">
+          Submit
+        </button>
       </form>
     </section>
   );
