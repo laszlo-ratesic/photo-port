@@ -1,5 +1,5 @@
 import React from "react";
-import { render, cleanup, fireEvent } from "@testing-library/react";
+import { render, cleanup, fireEvent, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import Modal from "..";
 
@@ -17,10 +17,19 @@ afterEach(cleanup);
 
 describe("Modal component", () => {
   it("renders", () => {
-    render(<Modal currentPhoto={currentPhoto} />);
+    render(<Modal currentPhoto={currentPhoto} onClose={mockToggleModal} />);
   });
   it("matches snapshot", () => {
-    const { asFragment } = render(<Modal currentPhoto={currentPhoto} />);
+    const { asFragment } = render(<Modal currentPhoto={currentPhoto} onClose={mockToggleModal} />);
     expect(asFragment()).toMatchSnapshot();
   });
 });
+
+describe('Click event', () => {
+  it('calls onClose handler', () => {
+    render(<Modal currentPhoto={currentPhoto} onClose={mockToggleModal} />);
+
+    fireEvent.click(screen.getByText('Close this modal'));
+    expect(mockToggleModal).toHaveBeenCalledTimes(1);
+  });
+})
